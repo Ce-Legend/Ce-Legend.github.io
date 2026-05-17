@@ -19,7 +19,7 @@ npm run dev
 
 ## 部署
 
-推送到 `main` 后，GitHub Actions 自动构建并发布到 GitHub Pages。
+推送到 `main` 后，GitHub Actions 自动构建，并把 `dist` 发布到 `gh-pages` 分支。GitHub Pages 从 `gh-pages` 分支根目录发布。
 
 ## 当前结构
 
