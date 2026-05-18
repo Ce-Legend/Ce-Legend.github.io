@@ -249,25 +249,7 @@ function App() {
         </div>
 
         <section className="orchard-map" aria-label="可交互果园地图">
-          <div className="map-ground" aria-hidden="true">
-            <span className="river" />
-            <span className="bridge" />
-            <span className="fence fence-front" />
-            <span className="fence fence-back" />
-          </div>
-
-          <div className="wood-sign sign-fruit">
-            <strong>已结果的树</strong>
-            <span>可运行的成果</span>
-          </div>
-          <div className="wood-sign sign-growing">
-            <strong>正在生长的树</strong>
-            <span>迭代中的项目</span>
-          </div>
-          <div className="wood-sign sign-seed">
-            <strong>未来树苗区</strong>
-            <span>想法与排队中</span>
-          </div>
+          <img className="orchard-base" src="/assets/orchard-map.png" alt="个人长期复利果园地图" />
 
           {orchardItems.map((item) => (
             <a
