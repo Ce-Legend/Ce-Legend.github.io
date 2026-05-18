@@ -303,16 +303,322 @@ nav a.active::after {
 }
 
 .orchard-map {
+  position: relative;
   margin: 0;
-  padding-top: 2px;
+  min-height: 600px;
+  max-height: min(640px, calc(100svh - 112px));
+  border-radius: 10px;
+  background:
+    radial-gradient(ellipse at 25% 30%, rgba(197, 218, 158, 0.5), transparent 28%),
+    radial-gradient(ellipse at 76% 34%, rgba(199, 222, 169, 0.55), transparent 30%),
+    radial-gradient(ellipse at 50% 78%, rgba(208, 227, 169, 0.62), transparent 38%),
+    linear-gradient(180deg, #fffefa 0%, #f8fbf0 100%);
+  overflow: hidden;
+  isolation: isolate;
 }
 
-.orchard-map img {
+.map-ground,
+.map-ground span {
+  position: absolute;
+  pointer-events: none;
+}
+
+.map-ground {
+  inset: 0;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 18% 48%, rgba(109, 144, 68, 0.12) 0 2px, transparent 3px),
+    radial-gradient(circle at 72% 20%, rgba(109, 144, 68, 0.11) 0 2px, transparent 3px),
+    radial-gradient(circle at 62% 73%, rgba(109, 144, 68, 0.1) 0 2px, transparent 3px);
+  background-size: 34px 28px, 42px 38px, 28px 34px;
+}
+
+.river {
+  top: 78%;
+  left: -8%;
+  width: 58%;
+  height: 96px;
+  border: 16px solid rgba(111, 173, 191, 0.55);
+  border-top: 0;
+  border-right: 0;
+  border-radius: 0 0 0 90%;
+  filter: blur(0.2px);
+  transform: rotate(-6deg);
+}
+
+.river::after {
+  position: absolute;
+  right: -18%;
+  bottom: -8px;
+  width: 82%;
+  height: 20px;
+  border-radius: 999px;
+  background: rgba(96, 158, 181, 0.22);
+  content: '';
+}
+
+.bridge {
+  top: 77%;
+  left: 14%;
+  width: 86px;
+  height: 28px;
+  border-top: 9px solid #a37843;
+  border-radius: 50% 50% 0 0;
+  transform: rotate(-8deg);
+}
+
+.fence {
+  border: 2px dashed rgba(123, 91, 53, 0.42);
+  border-radius: 50%;
+}
+
+.fence-front {
+  top: 58%;
+  left: 13%;
+  width: 74%;
+  height: 32%;
+}
+
+.fence-back {
+  top: 14%;
+  left: 7%;
+  width: 84%;
+  height: 43%;
+}
+
+.wood-sign {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  min-width: 146px;
+  gap: 3px;
+  border: 2px solid #7f6037;
+  border-radius: 6px;
+  padding: 10px 14px 9px;
+  background:
+    linear-gradient(90deg, rgba(101, 67, 32, 0.09), transparent 28%, rgba(101, 67, 32, 0.08)),
+    #d7b075;
+  box-shadow: 0 8px 18px rgba(71, 49, 24, 0.16);
+  color: #2f2618;
+  text-align: center;
+  transform: rotate(-1.5deg);
+}
+
+.wood-sign::before,
+.wood-sign::after {
+  position: absolute;
+  bottom: -34px;
+  width: 6px;
+  height: 34px;
+  border-radius: 999px;
+  background: #7f6037;
+  content: '';
+}
+
+.wood-sign::before {
+  left: 24px;
+}
+
+.wood-sign::after {
+  right: 24px;
+}
+
+.wood-sign strong {
+  font-family: "Kaiti SC", "STKaiti", "KaiTi", "Songti SC", serif;
+  font-size: 20px;
+  line-height: 1.05;
+}
+
+.wood-sign span {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sign-fruit {
+  top: 5%;
+  left: 18%;
+}
+
+.sign-growing {
+  top: 7%;
+  right: 16%;
+}
+
+.sign-seed {
+  bottom: 34%;
+  left: 43%;
+}
+
+.orchard-node {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  z-index: 3;
+  display: grid;
+  width: 142px;
+  justify-items: center;
+  color: var(--ink);
+  text-decoration: none;
+  transform: translate(-50%, -50%);
+  transition:
+    transform 180ms ease,
+    z-index 180ms ease;
+}
+
+.orchard-node:hover,
+.orchard-node:focus-visible {
+  z-index: 8;
+  outline: none;
+  transform: translate(-50%, -54%);
+}
+
+.tree-art {
+  position: relative;
   display: block;
-  width: 100%;
-  max-height: min(640px, calc(100svh - 112px));
-  object-fit: contain;
-  object-position: center;
+  width: 78px;
+  height: 92px;
+}
+
+.tree-art::before {
+  position: absolute;
+  right: 18px;
+  bottom: 8px;
+  left: 18px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(87, 63, 33, 0.18);
+  content: '';
+}
+
+.tree-art::after {
+  position: absolute;
+  bottom: 18px;
+  left: 36px;
+  width: 9px;
+  height: 38px;
+  border-radius: 999px;
+  background: #7f5b34;
+  content: '';
+}
+
+.tree-art i {
+  position: absolute;
+  top: 6px;
+  left: 10px;
+  width: 58px;
+  height: 58px;
+  border-radius: 44% 56% 51% 49%;
+  background:
+    radial-gradient(circle at 20% 35%, #f39a2a 0 4px, transparent 5px),
+    radial-gradient(circle at 58% 24%, #e47d25 0 4px, transparent 5px),
+    radial-gradient(circle at 72% 58%, #f6aa30 0 4px, transparent 5px),
+    #507a37;
+  box-shadow:
+    -18px 14px 0 -3px #6b9348,
+    16px 16px 0 -4px #5f8a42,
+    0 20px 0 -5px #466e32;
+}
+
+.orchard-node.growing .tree-art {
+  width: 72px;
+  height: 86px;
+}
+
+.orchard-node.growing .tree-art i {
+  top: 20px;
+  left: 20px;
+  width: 38px;
+  height: 42px;
+  background:
+    radial-gradient(circle at 70% 35%, rgba(255, 255, 255, 0.28) 0 5px, transparent 6px),
+    #6e9948;
+  box-shadow:
+    -12px 16px 0 -5px #7faa53,
+    12px 14px 0 -6px #5f8d43;
+}
+
+.orchard-node.seed .tree-art {
+  width: 62px;
+  height: 52px;
+}
+
+.orchard-node.seed .tree-art::after {
+  bottom: 18px;
+  left: 30px;
+  width: 5px;
+  height: 22px;
+}
+
+.orchard-node.seed .tree-art i {
+  top: 6px;
+  left: 25px;
+  width: 20px;
+  height: 25px;
+  border-radius: 60% 40% 55% 45%;
+  background: #6b9b49;
+  box-shadow: -12px 10px 0 -6px #84ad57;
+  transform: rotate(-14deg);
+}
+
+.node-label {
+  display: grid;
+  min-width: 128px;
+  gap: 2px;
+  border: 1px solid #d8cfbd;
+  border-radius: 8px;
+  padding: 7px 10px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 7px 16px rgba(50, 42, 26, 0.1);
+  text-align: center;
+}
+
+.node-label strong {
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.node-label small {
+  color: var(--green-strong);
+  font-size: 11px;
+  font-weight: 760;
+}
+
+.node-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  display: grid;
+  width: 226px;
+  gap: 6px;
+  border: 1px solid #cfc3ae;
+  border-radius: 8px;
+  padding: 12px 13px;
+  background: #ffffff;
+  box-shadow: 0 16px 38px rgba(43, 34, 20, 0.18);
+  color: var(--ink);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 8px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.node-popover b {
+  color: var(--green-strong);
+  font-size: 14px;
+}
+
+.node-popover span {
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.orchard-node:hover .node-popover,
+.orchard-node:focus-visible .node-popover {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 .entry-grid {
@@ -336,12 +642,40 @@ nav a.active::after {
     var(--paper);
   box-shadow: 0 12px 28px rgba(48, 39, 25, 0.08);
   padding: 22px 26px 20px;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.entry-card:hover {
+  border-color: #b9a98e;
+  box-shadow: 0 18px 38px rgba(48, 39, 25, 0.12);
+  transform: translateY(-3px);
 }
 
 .entry-title {
   display: flex;
   align-items: center;
   gap: 10px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.entry-title small {
+  margin-left: auto;
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 740;
+  opacity: 0.8;
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.entry-card:hover .entry-title small {
+  color: var(--green-strong);
+  transform: translateX(2px);
 }
 
 .entry-title h2 {
@@ -514,19 +848,44 @@ nav a.active::after {
 }
 
 .work-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
 }
 
 .work-list a {
+  display: grid;
+  min-height: 104px;
+  align-content: start;
+  gap: 8px;
   border: 1px solid var(--line-strong);
   border-radius: 8px;
-  padding: 10px 14px;
+  padding: 16px;
   background: #ffffff;
   color: var(--ink);
-  font-weight: 700;
   text-decoration: none;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.work-list a:hover {
+  border-color: rgba(38, 115, 69, 0.45);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-2px);
+}
+
+.work-list strong {
+  color: var(--green-strong);
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.work-list span {
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.55;
 }
 
 .resume-strip {
@@ -573,6 +932,14 @@ nav a.active::after {
 
   .entry-grid {
     grid-template-columns: 1fr;
+  }
+
+  .orchard-map {
+    min-height: 620px;
+  }
+
+  .work-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -628,6 +995,80 @@ nav a.active::after {
   .notebook {
     padding-left: 0;
     background: transparent;
+  }
+
+  .orchard-map {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    min-height: auto;
+    max-height: none;
+    padding: 14px;
+  }
+
+  .map-ground {
+    display: none;
+  }
+
+  .wood-sign {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    min-width: 118px;
+    padding: 8px 10px;
+  }
+
+  .wood-sign::before,
+  .wood-sign::after {
+    display: none;
+  }
+
+  .wood-sign strong {
+    font-size: 17px;
+  }
+
+  .sign-seed {
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+
+  .orchard-node {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    transform: none;
+  }
+
+  .orchard-node:hover,
+  .orchard-node:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .tree-art {
+    height: 70px;
+    transform: scale(0.78);
+    transform-origin: bottom center;
+  }
+
+  .node-label {
+    min-width: 0;
+    width: 100%;
+    padding-inline: 8px;
+  }
+
+  .node-label strong {
+    font-size: 12px;
+  }
+
+  .node-popover {
+    display: none;
+  }
+
+  .work-list {
+    grid-template-columns: 1fr;
   }
 
   .system-flow,
